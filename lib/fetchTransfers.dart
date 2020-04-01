@@ -17,6 +17,7 @@ class FetchTransfers extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           doneTransfersList = [];
+          pendingTransfersList = [];
           return ListView.builder(
               shrinkWrap: true,
               physics: ClampingScrollPhysics(),
@@ -29,8 +30,6 @@ class FetchTransfers extends StatelessWidget {
                 if(doc['isDone'] == 0) {
                    pendingTransfersList.add(doc);
                 }
-                print('FETCHO SAM ');
-
                 return EmptyContainer();
               });
               

@@ -7,7 +7,6 @@ class UpdateTransfers {
    update(
     DocumentSnapshot doc,
     String dateOfAdminTransfer,
-    int isDone,
   ) async {
     await db.collection('Transfers').document(doc.documentID).updateData({
       'dateOfAdminTransfer': dateOfAdminTransfer,
