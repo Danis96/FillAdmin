@@ -1,3 +1,5 @@
+
+import 'package:filladmin/pendingTransfers/pendingTransfers.dart';
 import 'package:filladmin/fetchTransfers.dart';
 import 'package:filladmin/firebaseMethods.dart/getTransfers.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +12,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fill Admin',
-      theme: ThemeData.dark(),
-      home: dashboard(),
+      home: Dashboard(),
     );
   }
 }
+
 
 Widget dashboard() {
   return Scaffold(
