@@ -18,17 +18,24 @@ class MyApp extends StatelessWidget {
 }
 
 
-Widget dashboard() {
-  return Scaffold(
+class Dashboard extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text('Transfers')),
       ),
       body: Center(
         child: Column(
           children: <Widget>[
-            Text('OTVORIO SAM PLAIKACIJUUU'),
+            GestureDetector(
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => PendingTransfersHome())),
+              child: Text('OTVORIO SAM PLAIKACIJUUU')),
             FetchTransfers()
           ],
         ),
       ));
+  }
 }

@@ -8,7 +8,7 @@ class Transfer {
   final String expireDate;
   final String cc;
   final String dateOfTransfer;
-  final String sarTransfered;
+  final int sarTransfered;
   final String dateOfAdminTransfer;
   final bool isDone;
 
