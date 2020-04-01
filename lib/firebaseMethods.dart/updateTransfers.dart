@@ -6,12 +6,12 @@ class UpdateTransfers {
    
    update(
     DocumentSnapshot doc,
-    int sar,
-    int tSar,
+    String dateOfAdminTransfer,
+    int isDone,
   ) async {
     await db.collection('Transfers').document(doc.documentID).updateData({
-      'sar': sar,
-      'transferSar': FieldValue.arrayUnion([tSar])
+      'dateOfAdminTransfer': dateOfAdminTransfer,
+      'isDone' : 1
     });
   }
 
