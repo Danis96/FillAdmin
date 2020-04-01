@@ -1,3 +1,4 @@
+import 'package:filladmin/pendingTransfers/pendingTransfers.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -8,18 +9,23 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fill Admin',
-      theme: ThemeData.dark(),
-      home: dashboard(),
+      home: Dashboard(),
     );
   }
 }
 
-Widget dashboard() {
-  return Scaffold(
-    appBar: AppBar(
-      title: Center(child: Text('Transfers')),
-    ),
-      body: Center(
-    child: Text('Hello world'),
-  ));
+class Dashboard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Center(child: Text('Transfers')),
+        ),
+        body: Center(
+          child: GestureDetector(
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => PendingTransfersHome())),
+              child: Text('Hello world')),
+        ));
+  }
 }
