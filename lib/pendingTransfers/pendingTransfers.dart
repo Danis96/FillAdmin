@@ -1,174 +1,78 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:filladmin/components/colors.dart';
 import 'package:filladmin/fetchTransfers.dart';
-import 'package:filladmin/firebaseMethods.dart/updateTransfers.dart';
-import 'package:filladmin/global/globals.dart';
-import 'package:filladmin/model/transferModel.dart';
-import 'package:filladmin/utils/screenUtils.dart';
+import 'package:filladmin/pendingTransfers/cardPending.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flare_checkbox/flare_checkbox.dart';
 
-class PendingTransfersHome extends StatelessWidget {
+List pendingTransfersList = [];
+
+class PendingTransfersHome extends StatefulWidget {
+  @override
+  _PendingTransfersHomeState createState() => _PendingTransfersHomeState();
+}
+
+class _PendingTransfersHomeState extends State<PendingTransfersHome>  with TickerProviderStateMixin {
+  AnimationController animationController;
+
+  @override
+  void initState() { 
+    super.initState();
+    /// Animation controller instance
+    ///
+    /// vsync - frame ticking & duration
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 400),
+    );
+    animationController.forward();
+  }
+
+  String _nameSurname,
+      _email,
+      _dateOfBirth,
+      _creditCardNumber,
+      _expireDate,
+      _cc,
+      _dateOfTransfer;
+
+  int _sarTransferred;
+
+  getDataToVariables(int index) {
+    _nameSurname = pendingTransfersList[index].data['name_and_surname'];
+    _email = pendingTransfersList[index].data['email'];
+    _dateOfBirth = pendingTransfersList[index].data['date_of_birth'];
+    _creditCardNumber = pendingTransfersList[index].data['card_number'];
+    _expireDate = pendingTransfersList[index].data['expipre_date'];
+    _cc = pendingTransfersList[index].data['cc'];
+    _dateOfTransfer = pendingTransfersList[index].data['date'];
+    _sarTransferred = pendingTransfersList[index].data['transferSar'];
+    print(_nameSurname);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        shrinkWrap: true,
         children: <Widget>[
           FetchTransfers(),
-          CardTransfer(),
-          CardTransfer(),
-          CardTransfer(),
-          CardTransfer(),
-          CardTransfer(),
-          CardTransfer(),
+          AnimatedList(
+              shrinkWrap: true,
+              initialItemCount: pendingTransfersList.length,
+              itemBuilder: (context, index, Animation animation) {
+                /// punimo varijable
+                getDataToVariables(index);
+
+                return CardTransfer(
+                  nameSurname: _nameSurname,
+                  email: _email,
+                  cc: _cc,
+                  creditCardNumber: _creditCardNumber,
+                  dateOfBirth: _dateOfBirth,
+                  dateOfTransfer: _dateOfTransfer,
+                  expireDate: _expireDate,
+                  sarTransferred: _sarTransferred,
+                );
+              }),
         ],
       ),
-    );
-  }
-}
-
-class CardTransfer extends StatefulWidget {
-  @override
-  _CardTransferState createState() => _CardTransferState();
-}
-
-class _CardTransferState extends State<CardTransfer> {
-  bool _checkBoxValue = false;
-  DocumentSnapshot _docPending;
-
-  @override
-  void initState() {
-    super.initState();
-    _checkBoxValue = false;
-    getTransferModel();
-  }
-
-  getTransferModel() {
-    _docPending = docPending;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Constant().responsive(context);
-
-    return Container(
-      margin: EdgeInsets.only(top: 10.0, bottom: 10.0, right: 20.0, left: 20.0),
-      decoration: BoxDecoration(
-          color: Colors.black54,
-          border: Border.all(color: CustomColors().black, width: 3.0),
-          borderRadius: BorderRadius.all(Radius.circular(30))),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(10.0),
-            child: Column(
-              children: <Widget>[
-                TitleCard(
-                  name: nameSurname,
-                ),
-                InfoCard(
-                  info: 'danis.preldzic@gmail.com',
-                ),
-                InfoCard(
-                  info: '11.03.1996.',
-                ),
-                InfoCard(
-                  info: '5555-5555-5555-5555',
-                ),
-                InfoCard(
-                  info: '08/23',
-                ),
-                InfoCard(
-                  info: '057',
-                ),
-                InfoCard(
-                  info: '23.03.2020.',
-                ),
-                InfoCard(
-                  info: '105',
-                ),
-              ],
-            ),
-          ),
-          Column(
-            children: <Widget>[
-              Container(
-                child: Center(
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.only(
-                            right: ScreenUtil.instance.setWidth(13.0)),
-                        child: Column(
-                          children: <Widget>[
-                            Text('Transfer' + '\n105' + ' SAR'),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(
-                            right: ScreenUtil.instance.setWidth(20.0)),
-                        child: Checkbox(
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                          value: _checkBoxValue,
-                          onChanged: (bool value) {
-                            setState(() {
-                              _checkBoxValue = value;
-                            });
-                            // UpdateTransfers().update(doc, dateOfAdminTransfer, isDone);
-                            print(_checkBoxValue);
-                          },
-                          checkColor: CustomColors().white,
-                          activeColor: Colors.green,
-                          tristate: false,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class TitleCard extends StatelessWidget {
-  final String name;
-  const TitleCard({Key key, this.name}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(right: 120.0),
-      child: Text(name,
-          style: TextStyle(
-            color: CustomColors().white,
-            fontSize: 22.0,
-          )),
-    );
-  }
-}
-
-class InfoCard extends StatelessWidget {
-  final String info;
-  const InfoCard({Key key, this.info}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(right: 30.0),
-      child: Text(info,
-          style: TextStyle(
-            color: CustomColors().white,
-            fontSize: 16.0,
-          )),
     );
   }
 }

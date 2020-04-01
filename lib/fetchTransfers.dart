@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filladmin/components/emptyContainer.dart';
 import 'package:filladmin/doneTransfers/doneTransfers.dart';
 import 'package:filladmin/firebaseMethods.dart/getTransfers.dart';
+import 'package:filladmin/pendingTransfers/pendingTransfers.dart';
 import 'package:flutter/material.dart';
 
 DocumentSnapshot doc;
-List<dynamic> doneStransfersList = [];
 
 class FetchTransfers extends StatelessWidget {
   FetchTransfers({Key key}) : super(key: key);
@@ -24,10 +24,17 @@ class FetchTransfers extends StatelessWidget {
                 doc = snapshot.data[index];
                 if(doc['isDone'] == 1) {
                   doneTransfersList.add(doc);
+                } 
+                if(doc['isDone'] == 0) {
+                   pendingTransfersList.add(doc);
                 }
+                print('FETCHO SAM ');
+
                 return EmptyContainer();
               });
+              
         }
+       
         return EmptyContainer();
       },
     );
