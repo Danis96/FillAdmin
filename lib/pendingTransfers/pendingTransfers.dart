@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filladmin/components/colors.dart';
 import 'package:filladmin/fetchTransfers.dart';
 import 'package:filladmin/firebaseMethods.dart/updateTransfers.dart';
-import 'package:filladmin/global/globals.dart';
 import 'package:filladmin/model/transferModel.dart';
 import 'package:filladmin/utils/screenUtils.dart';
 import 'package:flutter/material.dart';
@@ -42,12 +41,12 @@ class _CardTransferState extends State<CardTransfer> {
   void initState() {
     super.initState();
     _checkBoxValue = false;
-    getTransferModel();
+    //getTransferModel();
   }
 
-  getTransferModel() {
-    _docPending = docPending;
-  }
+  // getTransferModel() {
+  //   _docPending = docPending;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +66,7 @@ class _CardTransferState extends State<CardTransfer> {
             child: Column(
               children: <Widget>[
                 TitleCard(
-                  name: nameSurname,
+                  name: 'Danis',
                 ),
                 InfoCard(
                   info: 'danis.preldzic@gmail.com',

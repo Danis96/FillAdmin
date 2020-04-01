@@ -5,7 +5,6 @@ import 'package:filladmin/firebaseMethods.dart/getTransfers.dart';
 import 'package:flutter/material.dart';
 
 DocumentSnapshot doc;
-List<dynamic> doneStransfersList = [];
 
 class FetchTransfers extends StatelessWidget {
   FetchTransfers({Key key}) : super(key: key);
