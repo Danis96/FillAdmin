@@ -16,7 +16,6 @@ class _DashboardState extends State<Dashboard>
 
   @override
   void initState() {
-    FetchTransfers();
     _tabController = new TabController(length: 2, vsync: this);
     super.initState();
   }
