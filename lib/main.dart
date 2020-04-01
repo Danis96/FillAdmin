@@ -16,6 +16,9 @@ class MyApp extends StatelessWidget {
 
 Widget dashboard() {
   return Scaffold(
+    appBar: AppBar(
+      title: Center(child: Text('Transfers')),
+    ),
       body: Center(
     child: Text('Hello world'),
   ));
