@@ -41,7 +41,7 @@ class _CardTransferState extends State<CardTransfer> {
     return Container(
       margin: EdgeInsets.only(bottom: 20.0, right: 20.0, left: 20.0),
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.black54,
           border: Border.all(color: CustomColors().black, width: 3.0),
           borderRadius: BorderRadius.all(Radius.circular(30))),
       child: Row(
@@ -53,33 +53,33 @@ class _CardTransferState extends State<CardTransfer> {
               children: <Widget>[
                 Text('Danis',
                     style: TextStyle(
-                      color: CustomColors().black,
+                      color: CustomColors().white,
                       fontSize: 22.0,
                     )),
                 Text('Danis',
                     style:
-                        TextStyle(color: CustomColors().black, fontSize: 18.0)),
+                        TextStyle(color: CustomColors().white, fontSize: 18.0)),
                 Text('Danis',
                     style:
-                        TextStyle(color: CustomColors().black, fontSize: 18.0)),
+                        TextStyle(color: CustomColors().white, fontSize: 18.0)),
                 Text('Danis',
                     style:
-                        TextStyle(color: CustomColors().black, fontSize: 18.0)),
+                        TextStyle(color: CustomColors().white, fontSize: 18.0)),
                 Text('Danis',
                     style:
-                        TextStyle(color: CustomColors().black, fontSize: 18.0)),
+                        TextStyle(color: CustomColors().white, fontSize: 18.0)),
                 Text('Danis',
                     style:
-                        TextStyle(color: CustomColors().black, fontSize: 18.0)),
+                        TextStyle(color: CustomColors().white, fontSize: 18.0)),
                 Text('Danis',
                     style:
-                        TextStyle(color: CustomColors().black, fontSize: 18.0)),
+                        TextStyle(color: CustomColors().white, fontSize: 18.0)),
                 Text('Danis',
                     style:
-                        TextStyle(color: CustomColors().black, fontSize: 18.0)),
+                        TextStyle(color: CustomColors().white, fontSize: 18.0)),
                 Text('Danis',
                     style:
-                        TextStyle(color: CustomColors().black, fontSize: 18.0)),
+                        TextStyle(color: CustomColors().white, fontSize: 18.0)),
               ],
             ),
           ),
@@ -93,7 +93,7 @@ class _CardTransferState extends State<CardTransfer> {
                         child: Text(
                           'Transfer',
                           style: TextStyle(
-                            color: CustomColors().black,
+                            color: CustomColors().white,
                           ),
                         ),
                       ),

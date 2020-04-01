@@ -15,7 +15,7 @@ class _DashboardState extends State<Dashboard>
 
   @override
   void initState() {
-     FetchTransfers();
+    FetchTransfers();
     _tabController = new TabController(length: 2, vsync: this);
     super.initState();
   }
@@ -29,17 +29,14 @@ class _DashboardState extends State<Dashboard>
               controller: _tabController,
               unselectedLabelColor: Colors.white,
               tabs: [
+                Tab(text: 'Pending Transfers'),
                 Tab(
-                    icon: new Icon(Icons.check_box_outline_blank),
-                    text: 'Pending Transfers'),
-                Tab(
-                  icon: new Icon(Icons.check_box),
                   text: 'Done Transfers',
                 ),
               ])),
       body: TabBarView(
         children: [
-         PendingTransfersHome(),
+          PendingTransfersHome(),
           new Text("This Done Transfers View"),
         ],
         controller: _tabController,
