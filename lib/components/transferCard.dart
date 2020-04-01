@@ -56,7 +56,7 @@ class _TransferCardState extends State<TransferCard> {
     Constant().responsive(context);
     return Container(
       key: UniqueKey(),
-      height: ScreenUtil.instance.setWidth(290.0),
+      height: ScreenUtil.instance.setWidth(287.0),
       margin: EdgeInsets.only(bottom: ScreenUtil.instance.setWidth(20.0)),
       decoration: BoxDecoration(
           color: Colors.black54,
@@ -105,7 +105,7 @@ class _TransferCardState extends State<TransferCard> {
                             if (_checkBoxValue) {
                               UpdateTransfers().update(
                                   widget.doc, DateTime.now().toString());
-                              Timer(Duration(milliseconds: 500), () {
+                              Timer(Duration(milliseconds: 300), () {
                                 transferSuccessfull();
                                  widget.refresh();
                               });
