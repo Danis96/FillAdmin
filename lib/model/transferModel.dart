@@ -26,15 +26,15 @@ class Transfer {
 
   factory Transfer.fromDocument(DocumentSnapshot doc) {
     return Transfer(
-        nameSurname: doc[''],
-        email: doc[''],
-        dateOfBirth: doc[''],
-        creditCardNumber: doc[''],
-        expireDate: doc[''],
-        cc: doc[''],
-        dateOfTransfer: doc[''],
-        sarTransfered: doc[''],
-        dateOfAdminTransfer: doc[''],
-        isDone: doc['']);
+        nameSurname: doc['name_and_surname'],
+        email: doc['email'],
+        dateOfBirth: doc['date_of_birth'],
+        creditCardNumber: doc['card_number'],
+        expireDate: doc['expipre_date'],
+        cc: doc['cc'],
+        dateOfTransfer: doc['date'],
+        sarTransfered: doc['transferSar'],
+        dateOfAdminTransfer: doc['dateOfAdminTransfer'],
+        isDone: doc['isDone']);
   }
 }

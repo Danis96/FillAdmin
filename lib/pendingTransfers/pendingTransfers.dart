@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filladmin/components/colors.dart';
 import 'package:filladmin/fetchTransfers.dart';
+import 'package:filladmin/firebaseMethods.dart/updateTransfers.dart';
+import 'package:filladmin/global/globals.dart';
+import 'package:filladmin/model/transferModel.dart';
 import 'package:filladmin/utils/screenUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,20 +36,25 @@ class CardTransfer extends StatefulWidget {
 
 class _CardTransferState extends State<CardTransfer> {
   bool _checkBoxValue = false;
+  DocumentSnapshot _docPending;
 
   @override
   void initState() {
     super.initState();
     _checkBoxValue = false;
+    getTransferModel();
+  }
+
+  getTransferModel() {
+    _docPending = docPending;
   }
 
   @override
   Widget build(BuildContext context) {
-
     Constant().responsive(context);
 
     return Container(
-      margin: EdgeInsets.only(bottom: 20.0, right: 20.0, left: 20.0),
+      margin: EdgeInsets.only(top: 10.0, bottom: 10.0, right: 20.0, left: 20.0),
       decoration: BoxDecoration(
           color: Colors.black54,
           border: Border.all(color: CustomColors().black, width: 3.0),
@@ -59,7 +67,7 @@ class _CardTransferState extends State<CardTransfer> {
             child: Column(
               children: <Widget>[
                 TitleCard(
-                  name: 'Danis Preldzic',
+                  name: nameSurname,
                 ),
                 InfoCard(
                   info: 'danis.preldzic@gmail.com',
@@ -92,14 +100,17 @@ class _CardTransferState extends State<CardTransfer> {
                   child: Column(
                     children: <Widget>[
                       Container(
-                        child: Text(
-                          'Transfer' + '\n105 SARS',
-                          style: TextStyle(
-                            color: CustomColors().white,
-                          ),
+                        margin: EdgeInsets.only(
+                            right: ScreenUtil.instance.setWidth(13.0)),
+                        child: Column(
+                          children: <Widget>[
+                            Text('Transfer' + '\n105' + ' SAR'),
+                          ],
                         ),
                       ),
                       Container(
+                        margin: EdgeInsets.only(
+                            right: ScreenUtil.instance.setWidth(20.0)),
                         child: Checkbox(
                           materialTapTargetSize:
                               MaterialTapTargetSize.shrinkWrap,
@@ -108,6 +119,7 @@ class _CardTransferState extends State<CardTransfer> {
                             setState(() {
                               _checkBoxValue = value;
                             });
+                            // UpdateTransfers().update(doc, dateOfAdminTransfer, isDone);
                             print(_checkBoxValue);
                           },
                           checkColor: CustomColors().white,
