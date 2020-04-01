@@ -1,4 +1,5 @@
 import 'package:filladmin/dashboard.dart';
+import 'package:filladmin/pendingTransfers/pendingTransfers.dart';
 import 'package:filladmin/fetchTransfers.dart';
 import 'package:filladmin/firebaseMethods.dart/getTransfers.dart';
 import 'package:flutter/material.dart';
