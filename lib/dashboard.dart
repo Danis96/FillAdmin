@@ -1,3 +1,4 @@
+import 'package:filladmin/doneTransfers/doneTransfers.dart';
 import 'package:filladmin/fetchTransfers.dart';
 import 'package:filladmin/pendingTransfers/pendingTransfers.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class _DashboardState extends State<Dashboard>
       body: TabBarView(
         children: [
           PendingTransfersHome(),
-          new Text("This Done Transfers View"),
+          DoneTransfers(),
         ],
         controller: _tabController,
       ),
