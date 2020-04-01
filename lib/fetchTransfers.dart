@@ -3,6 +3,8 @@ import 'package:filladmin/components/emptyContainer.dart';
 import 'package:filladmin/firebaseMethods.dart/getTransfers.dart';
 import 'package:flutter/material.dart';
 
+DocumentSnapshot doc;
+
 class FetchTransfers extends StatelessWidget {
   FetchTransfers({Key key}) : super(key: key);
 
@@ -15,7 +17,6 @@ class FetchTransfers extends StatelessWidget {
       dateOfTransfer,
       dateOfAdminTransfer;
   int sarTransferred, isDone;
-  DocumentSnapshot doc;
 
   @override
   Widget build(BuildContext context) {
