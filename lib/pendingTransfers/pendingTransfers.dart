@@ -7,8 +7,6 @@ import 'package:filladmin/firebaseMethods.dart/getTransfers.dart';
 import 'package:filladmin/utils/screenUtils.dart';
 import 'package:flutter/material.dart';
 
-List pendingTransfersList = [];
-
 class PendingTransfersHome extends StatefulWidget {
   @override
   _PendingTransfersHomeState createState() => _PendingTransfersHomeState();
@@ -47,7 +45,6 @@ class _PendingTransfersHomeState extends State<PendingTransfersHome> {
           future: GetTransfers().getTransfers(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
-              pendingTransfersList = [];
               doneTransfersList = [];
               return ListView.builder(
                   shrinkWrap: true,
