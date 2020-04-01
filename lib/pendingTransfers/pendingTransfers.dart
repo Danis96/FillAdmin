@@ -1,5 +1,8 @@
 import 'package:filladmin/fetchTransfers.dart';
 import 'package:filladmin/pendingTransfers/cardPending.dart';
+import 'package:filladmin/firebaseMethods.dart/updateTransfers.dart';
+import 'package:filladmin/model/transferModel.dart';
+import 'package:filladmin/utils/screenUtils.dart';
 import 'package:flutter/material.dart';
 
 List pendingTransfersList = [];
@@ -32,7 +35,6 @@ class _PendingTransfersHomeState extends State<PendingTransfersHome>  with Ticke
       _expireDate,
       _cc,
       _dateOfTransfer;
-
   int _sarTransferred;
 
   getDataToVariables(int index) {
