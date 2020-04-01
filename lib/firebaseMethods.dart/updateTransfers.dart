@@ -4,7 +4,7 @@ class UpdateTransfers {
 
   final db = Firestore.instance;
    
-   updateSarOnTransfer(
+   update(
     DocumentSnapshot doc,
     int sar,
     int tSar,

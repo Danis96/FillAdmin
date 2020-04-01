@@ -1,3 +1,5 @@
+import 'package:filladmin/fetchTransfers.dart';
+import 'package:filladmin/pendingTransfers/pendingTransfers.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatefulWidget {
@@ -13,6 +15,7 @@ class _DashboardState extends State<Dashboard>
 
   @override
   void initState() {
+     FetchTransfers();
     _tabController = new TabController(length: 2, vsync: this);
     super.initState();
   }
@@ -36,7 +39,7 @@ class _DashboardState extends State<Dashboard>
               ])),
       body: TabBarView(
         children: [
-          new Text("This Pending Transfers View"),
+         PendingTransfersHome(),
           new Text("This Done Transfers View"),
         ],
         controller: _tabController,
