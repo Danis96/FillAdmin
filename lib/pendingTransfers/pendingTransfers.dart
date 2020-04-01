@@ -1,4 +1,5 @@
 import 'package:filladmin/components/colors.dart';
+import 'package:filladmin/fetchTransfers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flare_checkbox/flare_checkbox.dart';
@@ -10,6 +11,7 @@ class PendingTransfersHome extends StatelessWidget {
       body: ListView(
         shrinkWrap: true,
         children: <Widget>[
+           FetchTransfers(),
           CardTransfer(),
           CardTransfer(),
           CardTransfer(),

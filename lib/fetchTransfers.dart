@@ -28,6 +28,7 @@ class FetchTransfers extends StatelessWidget {
               physics: ClampingScrollPhysics(),
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) {
+                print('3');
                 doc = snapshot.data[index];
                 return EmptyContainer();
               });
