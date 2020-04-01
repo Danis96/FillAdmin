@@ -1,4 +1,4 @@
-
+import 'package:filladmin/dashboard.dart';
 import 'package:filladmin/pendingTransfers/pendingTransfers.dart';
 import 'package:filladmin/fetchTransfers.dart';
 import 'package:filladmin/firebaseMethods.dart/getTransfers.dart';
@@ -12,30 +12,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fill Admin',
+      theme: ThemeData.light(),
       home: Dashboard(),
     );
-  }
-}
-
-
-class Dashboard extends StatelessWidget {
-
-
-  @override
-  Widget build(BuildContext context) {
-     return Scaffold(
-      appBar: AppBar(
-        title: Center(child: Text('Transfers')),
-      ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            GestureDetector(
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => PendingTransfersHome())),
-              child: Text('OTVORIO SAM PLAIKACIJUUU')),
-            FetchTransfers()
-          ],
-        ),
-      ));
   }
 }
