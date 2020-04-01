@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Transfer {
   final String nameSurname;
   final String email;
