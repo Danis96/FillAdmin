@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:filladmin/components/text.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 
@@ -19,6 +20,10 @@ class _SendEmailState extends State<SendEmail> {
 
   Future<void> sendEmail(String recipent, BuildContext context) async {
     final smtpServer = gmail(email, password);
+    DateTime currentDateTime = DateTime.now();
+    String subjectDate = DateFormat.yMMMd().format(currentDateTime);
+    String time = DateFormat.Hm().format(currentDateTime);
+    String emailSubject = CustomText().subject + ' - ' + subjectDate + ' at ' + time;
     // Creating the Gmail server
 
     // Create our email message.
@@ -26,7 +31,7 @@ class _SendEmailState extends State<SendEmail> {
       ..from = Address(email)
       ..recipients.add(recipent) //recipent email
       ..attachments.add(FileAttachment(widget.file))
-      ..subject = CustomText().subject //subject of the email
+      ..subject = emailSubject//subject of the email
       ..text = CustomText().textMsg; //body of the email
 
     try {
