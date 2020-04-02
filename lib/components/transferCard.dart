@@ -89,37 +89,40 @@ class _TransferCardState extends State<TransferCard> {
             ),
             widget.isDone == 1
                 ? Text(CustomText().doaf + widget.dateOfAdminTransfer)
-                : Column(
-                    children: <Widget>[
-                      Container(
-                        child: Text(CustomText().transfer +
-                            widget.sarTransferred.toString() +
-                            CustomText().sar),
-                      ),
-                      Center(
-                        child: Checkbox(
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                          value: _checkBoxValue,
-                          onChanged: (bool value) {
-                            setState(() {
-                              _checkBoxValue = value;
-                            });
-                            if (_checkBoxValue) {
-                              UpdateTransfers().update(
-                                  widget.doc, DateTime.now().toString());
-                              Timer(Duration(milliseconds: 300), () {
-                                transferSuccessfull();
-                                widget.refresh();
-                              });
-                            }
-                          },
-                          checkColor: CustomColors().white,
-                          activeColor: Colors.green,
+                : Container(
+                  margin: EdgeInsets.only(top: ScreenUtil.instance.setWidth(30.0)),
+                  child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: Text(CustomText().transfer +
+                              widget.sarTransferred.toString() +
+                              CustomText().sar, style: TextStyle(fontSize: ScreenUtil.instance.setSp(20.0)),),
                         ),
-                      ),
-                    ],
-                  ),
+                        Center(
+                          child: Checkbox(
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            value: _checkBoxValue,
+                            onChanged: (bool value) {
+                              setState(() {
+                                _checkBoxValue = value;
+                              });
+                              if (_checkBoxValue) {
+                                UpdateTransfers().update(
+                                    widget.doc, DateTime.now().toString());
+                                Timer(Duration(milliseconds: 300), () {
+                                  transferSuccessfull();
+                                  widget.refresh();
+                                });
+                              }
+                            },
+                            checkColor: CustomColors().white,
+                            activeColor: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                ),
           ],
         ),
       ),
