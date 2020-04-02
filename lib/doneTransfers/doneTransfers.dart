@@ -13,7 +13,8 @@ class DoneTransfers extends StatefulWidget {
   _DoneTransfersState createState() => _DoneTransfersState();
 }
 
-class _DoneTransfersState extends State<DoneTransfers>   with AutomaticKeepAliveClientMixin<DoneTransfers>{
+class _DoneTransfersState extends State<DoneTransfers>
+    with AutomaticKeepAliveClientMixin<DoneTransfers> {
   String _nameSurname,
       _email,
       _dateOfBirth,
@@ -23,7 +24,7 @@ class _DoneTransfersState extends State<DoneTransfers>   with AutomaticKeepAlive
       _dateOfTransfer,
       _dateOfAdminTransfer;
 
-  int _sarTransferred;
+  int _sarTransferred, _isDone;
 
   DocumentSnapshot _doc;
 
@@ -37,6 +38,7 @@ class _DoneTransfersState extends State<DoneTransfers>   with AutomaticKeepAlive
     _dateOfTransfer = _doc.data['date'];
     _sarTransferred = _doc.data['transferSar'];
     _dateOfAdminTransfer = _doc.data['dateOfAdminTransfer'];
+     _isDone = _doc.data['isDone'];
     DateTime date = DateTime.parse(_dateOfTransfer);
     String time = DateFormat.Hm().format(date);
     _dateOfTransfer = DateFormat.yMMMd().format(date) + ' at ' + time;
@@ -59,11 +61,12 @@ class _DoneTransfersState extends State<DoneTransfers>   with AutomaticKeepAlive
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
                         _doc = snapshot.data[index];
-                        if (_doc.data['isDone'] == 1) {
-                          getDataToVariables(index, _doc);
-                        }
-                        return _doc.data['isDone'] == 1
+
+                        getDataToVariables(index, _doc);
+
+                        return _isDone == 1
                             ? TransferCard(
+                                refresh: refresh,
                                 doc: _doc,
                                 nameSurname: _nameSurname,
                                 email: _email,
@@ -83,6 +86,11 @@ class _DoneTransfersState extends State<DoneTransfers>   with AutomaticKeepAlive
               })),
     );
   }
+
+  refresh() {
+    setState(() {});
+  }
+
   @override
   bool get wantKeepAlive => true;
 }
