@@ -57,7 +57,9 @@ class _TransferCardState extends State<TransferCard> {
     Constant().responsive(context);
     return Container(
       key: UniqueKey(),
-      height: ScreenUtil.instance.setHeight(290.0),
+      height: widget.isDone == 1
+          ? ScreenUtil.instance.setHeight(280.0)
+          : ScreenUtil.instance.setHeight(330.0),
       margin: EdgeInsets.only(bottom: ScreenUtil.instance.setWidth(20.0)),
       decoration: BoxDecoration(
           color: Colors.black54,
@@ -108,7 +110,7 @@ class _TransferCardState extends State<TransferCard> {
                                   widget.doc, DateTime.now().toString());
                               Timer(Duration(milliseconds: 300), () {
                                 transferSuccessfull();
-                                 widget.refresh();
+                                widget.refresh();
                               });
                             }
                           },

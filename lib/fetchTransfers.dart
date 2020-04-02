@@ -16,16 +16,12 @@ class FetchTransfers extends StatelessWidget {
       future: GetTransfers().getTransfers(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          doneTransfersList = [];
           return ListView.builder(
               shrinkWrap: true,
               physics: ClampingScrollPhysics(),
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) {
                 doc = snapshot.data[index];
-                if(doc['isDone'] == 1) {
-                  doneTransfersList.add(doc);
-                } 
                 return EmptyContainer();
               });
               

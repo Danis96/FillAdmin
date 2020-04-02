@@ -11,6 +11,7 @@ import 'package:filladmin/firebaseMethods.dart/getTransfers.dart';
 import 'package:filladmin/utils/screenUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
   File jsonFile;
@@ -49,11 +50,13 @@ class _PendingTransfersHomeState extends State<PendingTransfersHome>
     _dateOfTransfer = _doc.data['date'];
     _sarTransferred = _doc.data['transferSar'];
     _isDone = _doc.data['isDone'];
+    DateTime date = DateTime.parse(_dateOfTransfer);
+    String time = DateFormat.Hm().format(date);
+    _dateOfTransfer = DateFormat.yMMMd().format(date) + ' at ' + time;
   }
 
   void createFile(
       Map<String, dynamic> content, Directory dir, String fileName) {
-    print('Creating file!');
     File file = new File(dir.path + '/' + fileName);
     path = file.path;
     file.createSync();
@@ -62,16 +65,13 @@ class _PendingTransfersHomeState extends State<PendingTransfersHome>
   }
 
   void writeToFile(String key, String value) {
-    print('Writing to file!');
-    Map<String, String> content = {key: value + '\n'};
+    Map<String, String> content = {key: value};
     if (fileExists) {
-      print('File Exist!');
       Map<String, dynamic> jsonFileContent =
           json.decode(jsonFile.readAsStringSync());
       jsonFileContent.addAll(content);
       jsonFile.writeAsStringSync(json.encode(jsonFileContent));
     } else {
-      print('File does not exist!');
       createFile(content, dir, fileName);
     }
     fileContent = json.decode(jsonFile.readAsStringSync());
@@ -100,15 +100,11 @@ class _PendingTransfersHomeState extends State<PendingTransfersHome>
               future: GetTransfers().getTransfers(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
-                  doneTransfersList = [];
                   return ListView.builder(
                       shrinkWrap: true,
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
                         _doc = snapshot.data[index];
-                        if (_doc['isDone'] == 1) {
-                          doneTransfersList.add(_doc);
-                        }
                         writeToFile('$index. Name and surname',
                             _nameSurname.toString());
                         writeToFile('$index. E-mail', _email.toString());
