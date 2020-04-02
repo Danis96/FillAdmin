@@ -2,14 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filladmin/components/colors.dart';
 import 'package:filladmin/components/emptyContainer.dart';
 import 'package:filladmin/components/transferCard.dart';
-import 'package:filladmin/fetchTransfers.dart';
 import 'package:filladmin/firebaseMethods.dart/getTransfers.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class DoneTransfers extends StatelessWidget {
+class DoneTransfers extends StatefulWidget {
   DoneTransfers({Key key}) : super(key: key);
 
+  @override
+  _DoneTransfersState createState() => _DoneTransfersState();
+}
+
+class _DoneTransfersState extends State<DoneTransfers>   with AutomaticKeepAliveClientMixin<DoneTransfers>{
   String _nameSurname,
       _email,
       _dateOfBirth,
@@ -18,7 +22,9 @@ class DoneTransfers extends StatelessWidget {
       _cc,
       _dateOfTransfer,
       _dateOfAdminTransfer;
+
   int _sarTransferred;
+
   DocumentSnapshot _doc;
 
   getDataToVariables(int index, DocumentSnapshot _doc) {
@@ -77,4 +83,6 @@ class DoneTransfers extends StatelessWidget {
               })),
     );
   }
+  @override
+  bool get wantKeepAlive => true;
 }
