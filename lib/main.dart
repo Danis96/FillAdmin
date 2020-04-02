@@ -1,7 +1,4 @@
-import 'package:filladmin/dashboard.dart';
-import 'package:filladmin/pendingTransfers/pendingTransfers.dart';
-import 'package:filladmin/fetchTransfers.dart';
-import 'package:filladmin/firebaseMethods.dart/getTransfers.dart';
+import 'package:filladmin/home/splashScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -13,7 +10,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Fill Admin',
       theme: ThemeData.dark(),
-      home: Dashboard(),
+      home: Scaffold(
+        body: MySplashScreen(),
+      ),
     );
   }
 }
