@@ -41,6 +41,24 @@ class ExportView extends StatelessWidget {
               height: ScreenUtil.instance.setWidth(10.0),
             ),
           ),
+          Container(
+            padding: EdgeInsets.all(10.0),
+            margin: EdgeInsets.only(top: ScreenUtil.instance.setWidth(10.0)),
+            child: Center(
+                child: Text(
+              CustomText().emailSender,
+              style: TextStyle(fontSize: ScreenUtil.instance.setSp(16.0)),
+            )),
+          ),
+          Container(
+            padding: EdgeInsets.all(3.0),
+            margin: EdgeInsets.only(top: ScreenUtil.instance.setWidth(5.0)),
+            child: Center(
+                child: Text(
+              CustomText().checkSpam,
+              style: TextStyle(fontSize: ScreenUtil.instance.setSp(14.0)),
+            )),
+          ),
           Center(
             child: Container(
               margin: EdgeInsets.only(top: ScreenUtil.instance.setWidth(140.0)),
