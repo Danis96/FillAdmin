@@ -41,7 +41,7 @@ class _DashboardState extends State<Dashboard>
               ])),
       body: TabBarView(
         children: [
-          PendingTransfersHome(),
+          PendingTransfersHome(refreshDash),
           DoneTransfers(),
            ExportView(),
         ],
@@ -49,4 +49,9 @@ class _DashboardState extends State<Dashboard>
       ),
     );
   }
+  refreshDash() {
+    setState(() {});
+  }
 }
+
+

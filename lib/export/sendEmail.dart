@@ -46,7 +46,7 @@ class _SendEmailState extends State<SendEmail> {
     return RaisedButton(
         child: Text(CustomText().btnEmailText),
         onPressed: () {
-          sendEmail('danis.preldzic@gmail.com', context);
+          sendEmail('fillapp@f-intelli.com', context);
         });
   }
 }

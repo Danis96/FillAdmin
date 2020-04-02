@@ -22,7 +22,7 @@ class TransferCard extends StatefulWidget {
       dateOfAdminTransfer;
   final int sarTransferred, isDone;
   final DocumentSnapshot doc;
-  final Function refresh;
+  final Function refresh, refreshDash;
   const TransferCard(
       {Key key,
       this.doc,
@@ -35,6 +35,7 @@ class TransferCard extends StatefulWidget {
       this.dateOfBirth,
       this.email,
       this.nameSurname,
+      this.refreshDash,
       this.cc,
       this.isDone})
       : super(key: key);
@@ -113,6 +114,7 @@ class _TransferCardState extends State<TransferCard> {
                                 Timer(Duration(milliseconds: 300), () {
                                   transferSuccessfull();
                                   widget.refresh();
+                                  widget.refreshDash();
                                 });
                               }
                             },

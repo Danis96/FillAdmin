@@ -12,6 +12,8 @@ import 'package:path_provider/path_provider.dart';
   File jsonFile;
 
 class PendingTransfersHome extends StatefulWidget {
+  final Function refreshDash;
+  PendingTransfersHome(this.refreshDash);
   @override
   _PendingTransfersHomeState createState() => _PendingTransfersHomeState();
 }
@@ -120,6 +122,7 @@ class _PendingTransfersHomeState extends State<PendingTransfersHome>
                         getDataToVariables(index, _doc);
                         return _isDone == 0
                             ? TransferCard(
+                                refreshDash: widget.refreshDash,
                                 refresh: refresh,
                                 doc: _doc,
                                 nameSurname: _nameSurname,
