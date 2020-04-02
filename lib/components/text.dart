@@ -17,6 +17,8 @@ class CustomText {
   /// Export View
     final String headline =  'Welcome admin \nHere you can export your transfers';
     final String subTitle = 'The file will contain all transfers\nand files will come to your email after clicking this button.';
+    final String emailSender = 'Email to send all transfers : fillapp@f-intelli.com';
+    final String checkSpam = '(check your inbox or spam/trash)';
   
 
   /// Send Email 

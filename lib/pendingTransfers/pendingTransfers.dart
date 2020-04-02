@@ -102,6 +102,12 @@ class _PendingTransfersHomeState extends State<PendingTransfersHome>
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
                         _doc = snapshot.data[index];
+
+                       
+                        /// punimo varijable
+                        getDataToVariables(index, _doc);
+
+                       /// upisujemo u json file koji kreiramo za export
                         writeToFile('$index. Name and surname',
                             _nameSurname.toString());
                         writeToFile('$index. E-mail', _email.toString());
@@ -118,8 +124,6 @@ class _PendingTransfersHomeState extends State<PendingTransfersHome>
                             _sarTransferred.toString());
                         writeToFile('$index. Done', _isDone.toString());
 
-                        /// punimo varijable
-                        getDataToVariables(index, _doc);
                         return _isDone == 0
                             ? TransferCard(
                                 refreshDash: widget.refreshDash,
