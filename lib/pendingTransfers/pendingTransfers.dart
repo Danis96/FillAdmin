@@ -159,6 +159,3 @@ class _PendingTransfersHomeState extends State<PendingTransfersHome>
   @override
   bool get wantKeepAlive => true;
 }
-
-
-  // SendEmail(file: jsonFile)/
