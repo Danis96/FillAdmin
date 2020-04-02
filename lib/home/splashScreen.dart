@@ -1,3 +1,4 @@
+import 'package:filladmin/components/text.dart';
 import 'package:filladmin/home/dashboard.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
       seconds: 2,
       navigateAfterSeconds: new Dashboard(),
       title: new Text(
-        'Admin App - fill',
+       CustomText().stitle ,
         style: new TextStyle(
             fontSize: 45, color: Colors.white, fontFamily: 'RobotoMono'), textAlign: TextAlign.center,
       ),
@@ -23,7 +24,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
       onClick: () => new Dashboard(),
       loaderColor: Colors.black,
       loadingText: new Text(
-        'Built by Makena',
+       CustomText().ssub,
         style: new TextStyle(
             fontSize: 23, color: Colors.white, fontFamily: 'RobotoMono'),
       ),

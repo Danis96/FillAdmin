@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:filladmin/components/text.dart';
 import 'package:flutter/material.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
@@ -25,8 +26,8 @@ class _SendEmailState extends State<SendEmail> {
       ..from = Address(email)
       ..recipients.add(recipent) //recipent email
       ..attachments.add(FileAttachment(widget.file))
-      ..subject = 'Transfers' //subject of the email
-      ..text = 'Here is your transfers JSON file.'; //body of the email
+      ..subject = CustomText().subject //subject of the email
+      ..text = CustomText().textMsg; //body of the email
 
     try {
       final sendReport = await send(message, smtpServer);
@@ -43,7 +44,7 @@ class _SendEmailState extends State<SendEmail> {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-        child: Text('Send Email'),
+        child: Text(CustomText().btnEmailText),
         onPressed: () {
           sendEmail('danis.preldzic@gmail.com', context);
         });
