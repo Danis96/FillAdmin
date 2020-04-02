@@ -56,7 +56,7 @@ class _TransferCardState extends State<TransferCard> {
     Constant().responsive(context);
     return Container(
       key: UniqueKey(),
-      height: ScreenUtil.instance.setWidth(287.0),
+      height: ScreenUtil.instance.setHeight(330.0),
       margin: EdgeInsets.only(bottom: ScreenUtil.instance.setWidth(20.0)),
       decoration: BoxDecoration(
           color: Colors.black54,
