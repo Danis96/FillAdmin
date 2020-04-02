@@ -4,13 +4,8 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filladmin/components/emptyContainer.dart';
 import 'package:filladmin/components/transferCard.dart';
-import 'package:filladmin/doneTransfers/doneTransfers.dart';
-import 'package:filladmin/export/sendEmail.dart';
-import 'package:filladmin/fetchTransfers.dart';
 import 'package:filladmin/firebaseMethods.dart/getTransfers.dart';
-import 'package:filladmin/utils/screenUtils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
