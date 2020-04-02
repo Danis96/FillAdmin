@@ -31,7 +31,6 @@ class _ExportTransfersState extends State<ExportTransfers> {
   }
 
   void createFile(Map<String, dynamic> content, Directory dir, String fileName) {
-    print('Creating file!');
     File file = new File(dir.path + '/' + fileName);
     file.createSync();
     fileExists = true;
@@ -39,15 +38,12 @@ class _ExportTransfersState extends State<ExportTransfers> {
   }
 
   void writeToFile(String key, String value) {
-    print('Writing to file!');
     Map<String, String> content = {key: value};
     if(fileExists) {
-      print('File Exist!');
       Map<String, String> jsonFileContent = json.decode(jsonFile.readAsStringSync());
       jsonFileContent.addAll(content);
       jsonFile.writeAsStringSync(json.encode(jsonFileContent));
     } else {
-      print('File does not exist!');
       createFile(content, dir, fileName);
     }
     this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));

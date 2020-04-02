@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filladmin/components/colors.dart';
 import 'package:filladmin/components/mySnackbar.dart';
+import 'package:filladmin/components/text.dart';
 import 'package:filladmin/firebaseMethods.dart/updateTransfers.dart';
 import 'package:filladmin/utils/screenUtils.dart';
 import 'package:flutter/material.dart';
@@ -67,31 +68,31 @@ class _TransferCardState extends State<TransferCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Name and surname: ' + widget.nameSurname),
-            Text('E-mail address: ' + widget.email),
-            Text('Date of birth: ' + widget.dateOfBirth),
-            Text('Date of transfer: ' + widget.dateOfTransfer),
-            Text('Amount of cash transfered: ' +
+            Text(CustomText().name + widget.nameSurname),
+            Text(CustomText().email + widget.email),
+            Text(CustomText().dob + widget.dateOfBirth),
+            Text(CustomText().dof + widget.dateOfTransfer),
+            Text(CustomText().cash +
                 widget.sarTransferred.toString() +
-                ' SAR'),
+                CustomText().sar),
             Container(
               margin: EdgeInsets.only(top: 10, bottom: 5),
               child: Divider(),
             ),
-            Text('Credit card number: ' + widget.creditCardNumber),
-            Text('Expire date: ' + widget.expireDate),
-            Text('CC: ' + widget.cc),
+            Text(CustomText().ccn + widget.creditCardNumber),
+            Text(CustomText().expire + widget.expireDate),
+            Text(CustomText().cc + widget.cc),
             Container(
               child: Divider(),
             ),
             widget.isDone == 1
-                ? Text('Date of admin transfer: ' + widget.dateOfAdminTransfer)
+                ? Text(CustomText().doaf + widget.dateOfAdminTransfer)
                 : Column(
                     children: <Widget>[
                       Container(
-                        child: Text('Transfer ' +
+                        child: Text(CustomText().transfer +
                             widget.sarTransferred.toString() +
-                            ' SAR'),
+                            CustomText().sar),
                       ),
                       Center(
                         child: Checkbox(
@@ -125,6 +126,6 @@ class _TransferCardState extends State<TransferCard> {
 
   /// snackbar for transfer succesfull
   transferSuccessfull() {
-    MySnackbar().showSnackbar('Transfer is Successfull', context, '');
+    MySnackbar().showSnackbar(CustomText().snackSuccess, context, '');
   }
 }

@@ -1,3 +1,4 @@
+import 'package:filladmin/components/text.dart';
 import 'package:filladmin/export/sendEmail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +15,7 @@ class ExportView extends StatelessWidget {
             margin: EdgeInsets.only(top: ScreenUtil.instance.setWidth(30.0)),
             child: Center(
                 child: Text(
-              'Welcome admin \nHere you can export your transfers',
+             CustomText().headline,
               style: TextStyle(fontSize: ScreenUtil.instance.setSp(22.0)),
             )),
           ),
@@ -30,7 +31,7 @@ class ExportView extends StatelessWidget {
             margin: EdgeInsets.only(top: ScreenUtil.instance.setWidth(10.0)),
             child: Center(
                 child: Text(
-              'The file will contain all transfers\nand files will come to your email after clicking this button.',
+              CustomText().subTitle,
               style: TextStyle(fontSize: ScreenUtil.instance.setSp(16.0)),
             )),
           ),
