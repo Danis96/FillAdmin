@@ -13,12 +13,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:path_provider/path_provider.dart';
 
+  File jsonFile;
+
 class PendingTransfersHome extends StatefulWidget {
   @override
   _PendingTransfersHomeState createState() => _PendingTransfersHomeState();
 }
 
-class _PendingTransfersHomeState extends State<PendingTransfersHome> {
+class _PendingTransfersHomeState extends State<PendingTransfersHome>
+    with AutomaticKeepAliveClientMixin<PendingTransfersHome> {
   String _nameSurname,
       _email,
       _dateOfBirth,
@@ -27,7 +30,7 @@ class _PendingTransfersHomeState extends State<PendingTransfersHome> {
       _cc,
       _dateOfTransfer;
   int _sarTransferred, _isDone;
-  File jsonFile;
+
   Directory dir;
   String fileName = 'transfers.json';
   String path;
@@ -92,8 +95,7 @@ class _PendingTransfersHomeState extends State<PendingTransfersHome> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: <Widget>[
+        child: 
             FutureBuilder(
               future: GetTransfers().getTransfers(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -107,16 +109,20 @@ class _PendingTransfersHomeState extends State<PendingTransfersHome> {
                         if (_doc['isDone'] == 1) {
                           doneTransfersList.add(_doc);
                         }
-                        writeToFile('$index. Name and surname', _nameSurname.toString());
+                        writeToFile('$index. Name and surname',
+                            _nameSurname.toString());
                         writeToFile('$index. E-mail', _email.toString());
-                        writeToFile('$index. Date of birth', _dateOfBirth.toString());
                         writeToFile(
-                            '$index. Credit card number', _creditCardNumber.toString());
-                        writeToFile('$index. Expire date', _expireDate.toString());
+                            '$index. Date of birth', _dateOfBirth.toString());
+                        writeToFile('$index. Credit card number',
+                            _creditCardNumber.toString());
+                        writeToFile(
+                            '$index. Expire date', _expireDate.toString());
                         writeToFile('$index. CC', _cc.toString());
-                        writeToFile('$index. Date of transfer', _dateOfTransfer.toString());
-                        writeToFile(
-                            '$index. SAR transferred', _sarTransferred.toString());
+                        writeToFile('$index. Date of transfer',
+                            _dateOfTransfer.toString());
+                        writeToFile('$index. SAR transferred',
+                            _sarTransferred.toString());
                         writeToFile('$index. Done', _isDone.toString());
 
                         /// punimo varijable
@@ -142,9 +148,6 @@ class _PendingTransfersHomeState extends State<PendingTransfersHome> {
                 }
               },
             ),
-            SendEmail(file: jsonFile)
-          ],
-        ),
       ),
     );
   }
@@ -152,4 +155,10 @@ class _PendingTransfersHomeState extends State<PendingTransfersHome> {
   refresh() {
     setState(() {});
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
+
+
+  // SendEmail(file: jsonFile)/

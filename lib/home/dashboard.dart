@@ -1,4 +1,6 @@
 import 'package:filladmin/doneTransfers/doneTransfers.dart';
+import 'package:filladmin/export/exportView.dart';
+import 'package:filladmin/export/sendEmail.dart';
 import 'package:filladmin/fetchTransfers.dart';
 import 'package:filladmin/pendingTransfers/pendingTransfers.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ class _DashboardState extends State<Dashboard>
 
   @override
   void initState() {
-    _tabController = new TabController(length: 2, vsync: this);
+    _tabController = new TabController(length: 3, vsync: this);
     super.initState();
   }
 
@@ -25,19 +27,24 @@ class _DashboardState extends State<Dashboard>
     return Scaffold(
       appBar: AppBar(
           title: Center(child: Text('Transfers')),
+          centerTitle: true,
           bottom: TabBar(
               controller: _tabController,
               unselectedLabelColor: Colors.white,
               tabs: [
-                Tab(text: 'Pending Transfers'),
+                Tab(text: 'Pending'),
                 Tab(
-                  text: 'Done Transfers',
+                  text: 'Done',
+                ),
+                 Tab(
+                  text: 'Export',
                 ),
               ])),
       body: TabBarView(
         children: [
           PendingTransfersHome(),
           DoneTransfers(),
+           ExportView(),
         ],
         controller: _tabController,
       ),
