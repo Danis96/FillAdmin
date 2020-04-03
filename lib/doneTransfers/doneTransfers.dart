@@ -38,13 +38,15 @@ class _DoneTransfersState extends State<DoneTransfers>
     _dateOfTransfer = _doc.data['date'];
     _sarTransferred = _doc.data['transferSar'];
     _dateOfAdminTransfer = _doc.data['dateOfAdminTransfer'];
-     _isDone = _doc.data['isDone'];
-    DateTime date = DateTime.parse(_dateOfTransfer);
-    String time = DateFormat.Hm().format(date);
-    _dateOfTransfer = DateFormat.yMMMd().format(date) + ' at ' + time;
+    _isDone = _doc.data['isDone'];
+
     DateTime date2 = DateTime.parse(_dateOfAdminTransfer);
     String time2 = DateFormat.Hm().format(date2);
     _dateOfAdminTransfer = DateFormat.yMMMd().format(date2) + ' at ' + time2;
+
+    DateTime date = DateTime.parse(_dateOfTransfer);
+    String time = DateFormat.Hm().format(date);
+    _dateOfTransfer = DateFormat.yMMMd().format(date) + ' at ' + time;
   }
 
   @override
