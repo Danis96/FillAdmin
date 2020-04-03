@@ -40,9 +40,13 @@ class _DoneTransfersState extends State<DoneTransfers>
     _dateOfAdminTransfer = _doc.data['dateOfAdminTransfer'];
     _isDone = _doc.data['isDone'];
 
-    DateTime date2 = DateTime.parse(_dateOfAdminTransfer);
-    String time2 = DateFormat.Hm().format(date2);
-    _dateOfAdminTransfer = DateFormat.yMMMd().format(date2) + ' at ' + time2;
+    if (_dateOfAdminTransfer != '') {
+      DateTime date2 = DateTime.parse(_dateOfAdminTransfer);
+      String time2 = DateFormat.Hm().format(date2);
+      _dateOfAdminTransfer = DateFormat.yMMMd().format(date2) + ' at ' + time2;
+    } else {
+      _dateOfAdminTransfer = '2020-04-03 16:29:06.876348';
+    }
 
     DateTime date = DateTime.parse(_dateOfTransfer);
     String time = DateFormat.Hm().format(date);

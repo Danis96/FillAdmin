@@ -58,7 +58,6 @@ class _SendEmailState extends State<SendEmail> {
           sendEmail('fillapp@f-intelli.com', context);
         });
   }
-
   emailSent() {
     MySnackbar().showSnackbar('Email is sent!', context, '');
   }
