@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:io';
+import 'package:filladmin/components/mySnackbar.dart';
 import 'package:filladmin/components/text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -23,7 +25,8 @@ class _SendEmailState extends State<SendEmail> {
     DateTime currentDateTime = DateTime.now();
     String subjectDate = DateFormat.yMMMd().format(currentDateTime);
     String time = DateFormat.Hm().format(currentDateTime);
-    String emailSubject = CustomText().subject + ' - ' + subjectDate + ' at ' + time;
+    String emailSubject =
+        CustomText().subject + ' - ' + subjectDate + ' at ' + time;
     // Creating the Gmail server
 
     // Create our email message.
@@ -31,11 +34,12 @@ class _SendEmailState extends State<SendEmail> {
       ..from = Address(email)
       ..recipients.add(recipent) //recipent email
       ..attachments.add(FileAttachment(widget.file))
-      ..subject = emailSubject//subject of the email
+      ..subject = emailSubject //subject of the email
       ..text = CustomText().textMsg; //body of the email
 
     try {
       final sendReport = await send(message, smtpServer);
+      emailSent();
       print('Message sent. ' +
           sendReport.toString()); //print if the email is sent
     } on MailerException catch (e) {
@@ -53,5 +57,9 @@ class _SendEmailState extends State<SendEmail> {
         onPressed: () {
           sendEmail('fillapp@f-intelli.com', context);
         });
+  }
+
+  emailSent() {
+    MySnackbar().showSnackbar('Email is sent!', context, '');
   }
 }
