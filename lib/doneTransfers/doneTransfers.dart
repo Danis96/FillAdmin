@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:filladmin/components/colors.dart';
 import 'package:filladmin/components/emptyContainer.dart';
 import 'package:filladmin/components/transferCard.dart';
 import 'package:filladmin/firebaseMethods.dart/getTransfers.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+RefreshController _refreshController = RefreshController(initialRefresh: false);
 
 class DoneTransfers extends StatefulWidget {
   DoneTransfers({Key key}) : super(key: key);
@@ -62,34 +64,39 @@ class _DoneTransfersState extends State<DoneTransfers>
               future: GetTransfers().getTransfers(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (context, index) {
-                        _doc = snapshot.data[index];
+                  return SmartRefresher(
+                    enablePullDown: true,
+                    controller: _refreshController,
+                    onRefresh: _onRefresh,
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (context, index) {
+                          _doc = snapshot.data[index];
 
-                        /// punimo varijable
-                        getDataToVariables(index, _doc);
+                          /// punimo varijable
+                          getDataToVariables(index, _doc);
 
-                        return _isDone == 1
-                            ? TransferCard(
-                                refresh: refresh,
-                                doc: _doc,
-                                nameSurname: _nameSurname,
-                                email: _email,
-                                dateOfBirth: _dateOfBirth,
-                                dateOfTransfer: _dateOfTransfer,
-                                sarTransferred: _sarTransferred,
-                                creditCardNumber: _creditCardNumber,
-                                expireDate: _expireDate,
-                                cc: _cc,
-                                dateOfAdminTransfer: _dateOfAdminTransfer,
-                                isDone: 1)
-                            : EmptyContainer();
-                      });
+                          return _isDone == 1
+                              ? TransferCard(
+                                  refresh: refresh,
+                                  doc: _doc,
+                                  nameSurname: _nameSurname,
+                                  email: _email,
+                                  dateOfBirth: _dateOfBirth,
+                                  dateOfTransfer: _dateOfTransfer,
+                                  sarTransferred: _sarTransferred,
+                                  creditCardNumber: _creditCardNumber,
+                                  expireDate: _expireDate,
+                                  cc: _cc,
+                                  dateOfAdminTransfer: _dateOfAdminTransfer,
+                                  isDone: 1)
+                              : EmptyContainer();
+                        }),
+                  );
                 } else {
                   return Center(
-                     child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(),
                   );
                 }
               })),
@@ -98,6 +105,15 @@ class _DoneTransfersState extends State<DoneTransfers>
 
   refresh() {
     setState(() {});
+  }
+
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use refreshFailed()
+    setState(() {});
+    refresh();
+    _refreshController.refreshCompleted();
   }
 
   @override
