@@ -68,6 +68,7 @@ class _DoneTransfersState extends State<DoneTransfers>
                       itemBuilder: (context, index) {
                         _doc = snapshot.data[index];
 
+                        /// punimo varijable
                         getDataToVariables(index, _doc);
 
                         return _isDone == 1
@@ -87,7 +88,9 @@ class _DoneTransfersState extends State<DoneTransfers>
                             : EmptyContainer();
                       });
                 } else {
-                  return EmptyContainer();
+                  return Center(
+                     child: CircularProgressIndicator(),
+                  );
                 }
               })),
     );
