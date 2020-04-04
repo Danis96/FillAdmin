@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filladmin/components/emptyContainer.dart';
 import 'package:filladmin/components/transferCard.dart';
@@ -8,8 +7,10 @@ import 'package:filladmin/firebaseMethods.dart/getTransfers.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-  File jsonFile;
+File jsonFile;
+RefreshController _refreshController = RefreshController(initialRefresh: false);
 
 class PendingTransfersHome extends StatefulWidget {
   final Function refreshDash;
@@ -92,68 +93,80 @@ class _PendingTransfersHomeState extends State<PendingTransfersHome>
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: 
-            FutureBuilder(
-              future: GetTransfers().getTransfers(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (context, index) {
-                        _doc = snapshot.data[index];
+        child: FutureBuilder(
+          future: GetTransfers().getTransfers(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              return SmartRefresher(
+                enablePullDown: true,
+                controller: _refreshController,
+                onRefresh: _onRefresh,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, index) {
+                      _doc = snapshot.data[index];
 
-                       
-                        /// punimo varijable
-                        getDataToVariables(index, _doc);
+                      /// punimo varijable
+                      getDataToVariables(index, _doc);
 
-                       /// upisujemo u json file koji kreiramo za export
-                        writeToFile('$index. Name and surname',
-                            _nameSurname.toString());
-                        writeToFile('$index. E-mail', _email.toString());
-                        writeToFile(
-                            '$index. Date of birth', _dateOfBirth.toString());
-                        writeToFile('$index. Credit card number',
-                            _creditCardNumber.toString());
-                        writeToFile(
-                            '$index. Expire date', _expireDate.toString());
-                        writeToFile('$index. CC', _cc.toString());
-                        writeToFile('$index. Date of transfer',
-                            _dateOfTransfer.toString());
-                        writeToFile('$index. SAR transferred',
-                            _sarTransferred.toString());
-                        writeToFile('$index. Done', _isDone.toString());
+                      /// upisujemo u json file koji kreiramo za export
+                      writeToFile(
+                          '$index. Name and surname', _nameSurname.toString());
+                      writeToFile('$index. E-mail', _email.toString());
+                      writeToFile(
+                          '$index. Date of birth', _dateOfBirth.toString());
+                      writeToFile('$index. Credit card number',
+                          _creditCardNumber.toString());
+                      writeToFile(
+                          '$index. Expire date', _expireDate.toString());
+                      writeToFile('$index. CC', _cc.toString());
+                      writeToFile('$index. Date of transfer',
+                          _dateOfTransfer.toString());
+                      writeToFile('$index. SAR transferred',
+                          _sarTransferred.toString());
+                      writeToFile('$index. Done', _isDone.toString());
 
-                        return _isDone == 0
-                            ? TransferCard(
-                                refreshDash: widget.refreshDash,
-                                refresh: refresh,
-                                doc: _doc,
-                                nameSurname: _nameSurname,
-                                email: _email,
-                                cc: _cc,
-                                creditCardNumber: _creditCardNumber,
-                                dateOfBirth: _dateOfBirth,
-                                dateOfTransfer: _dateOfTransfer,
-                                expireDate: _expireDate,
-                                sarTransferred: _sarTransferred,
-                                isDone: 0,
-                              )
-                            : EmptyContainer();
-                      });
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
-            ),
+                      return _isDone == 0
+                          ? TransferCard(
+                              refreshDash: widget.refreshDash,
+                              refresh: refresh,
+                              doc: _doc,
+                              nameSurname: _nameSurname,
+                              email: _email,
+                              cc: _cc,
+                              creditCardNumber: _creditCardNumber,
+                              dateOfBirth: _dateOfBirth,
+                              dateOfTransfer: _dateOfTransfer,
+                              expireDate: _expireDate,
+                              sarTransferred: _sarTransferred,
+                              isDone: 0,
+                            )
+                          : EmptyContainer();
+                    }),
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
       ),
     );
   }
 
   refresh() {
     setState(() {});
+  }
+
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use refreshFailed()
+    setState(() {});
+    widget.refreshDash();
+    _refreshController.refreshCompleted();
   }
 
   @override

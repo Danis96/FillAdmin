@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:filladmin/components/loaderDialog.dart';
 import 'package:filladmin/components/mySnackbar.dart';
 import 'package:filladmin/components/text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
+
+final GlobalKey<State> _keyLoader = new GlobalKey<State>();
 
 class SendEmail extends StatefulWidget {
   final File file;
@@ -21,6 +24,7 @@ class _SendEmailState extends State<SendEmail> {
   String password = "kjpu8vk6";
 
   Future<void> sendEmail(String recipent, BuildContext context) async {
+    Dialogs.showLoadingDialog(context, _keyLoader);
     final smtpServer = gmail(email, password);
     DateTime currentDateTime = DateTime.now();
     String subjectDate = DateFormat.yMMMd().format(currentDateTime);
@@ -39,6 +43,7 @@ class _SendEmailState extends State<SendEmail> {
 
     try {
       final sendReport = await send(message, smtpServer);
+      Navigator.of(_keyLoader.currentContext, rootNavigator: true).pop();
       emailSent();
       print('Message sent. ' +
           sendReport.toString()); //print if the email is sent
@@ -58,6 +63,7 @@ class _SendEmailState extends State<SendEmail> {
           sendEmail('fillapp@f-intelli.com', context);
         });
   }
+
   emailSent() {
     MySnackbar().showSnackbar('Email is sent!', context, '');
   }
