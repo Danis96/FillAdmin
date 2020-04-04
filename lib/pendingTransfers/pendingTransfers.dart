@@ -142,7 +142,9 @@ class _PendingTransfersHomeState extends State<PendingTransfersHome>
                             : EmptyContainer();
                       });
                 } else {
-                  return EmptyContainer();
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
               },
             ),
