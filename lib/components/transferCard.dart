@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filladmin/components/colors.dart';
+import 'package:filladmin/components/loaderDialog.dart';
 import 'package:filladmin/components/mySnackbar.dart';
 import 'package:filladmin/components/text.dart';
 import 'package:filladmin/firebaseMethods.dart/updateTransfers.dart';
@@ -10,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 bool isVisible = false;
+
+final GlobalKey<State> _keyLoader1 = new GlobalKey<State>();
 
 class TransferCard extends StatefulWidget {
   final String nameSurname,
@@ -91,44 +94,83 @@ class _TransferCardState extends State<TransferCard> {
             widget.isDone == 1
                 ? Text(CustomText().doaf + widget.dateOfAdminTransfer)
                 : Container(
-                  margin: EdgeInsets.only(top: ScreenUtil.instance.setWidth(30.0)),
-                  child: Column(
+                    margin: EdgeInsets.only(
+                        top: ScreenUtil.instance.setWidth(30.0)),
+                    child: Column(
                       children: <Widget>[
                         Container(
-                          child: Text(CustomText().transfer +
-                              widget.sarTransferred.toString() +
-                              CustomText().sar, style: TextStyle(fontSize: ScreenUtil.instance.setSp(20.0)),),
+                          child: Text(
+                            CustomText().transfer +
+                                widget.sarTransferred.toString() +
+                                CustomText().sar,
+                            style: TextStyle(
+                                fontSize: ScreenUtil.instance.setSp(20.0)),
+                          ),
                         ),
                         Center(
-                          child: Checkbox(
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            value: _checkBoxValue,
-                            onChanged: (bool value) {
-                              setState(() {
-                                _checkBoxValue = value;
-                              });
-                              if (_checkBoxValue) {
-                                UpdateTransfers().update(
-                                    widget.doc, DateTime.now().toString());
-                                Timer(Duration(milliseconds: 300), () {
-                                  transferSuccessfull();
-                                  widget.refresh();
-                                  widget.refreshDash();
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: Checkbox(
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              value: _checkBoxValue,
+                              onChanged: (bool value) {
+                                setState(() {
+                                  _checkBoxValue = value;
                                 });
-                              }
-                            },
-                            checkColor: CustomColors().white,
-                            activeColor: Colors.green,
+
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                          title: Text('Are you sure?'),
+                                          content: new Text(
+                                              'By choosing "Yes" transfer will be completed'),
+                                          actions: <Widget>[
+                                            new FlatButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                                setState(() {
+                                                  _checkBoxValue = false;
+                                                });
+                                              },
+                                              child: new Text('No'),
+                                            ),
+                                            new FlatButton(
+                                              onPressed: () => {
+                                                Navigator.pop(context),
+                                                transferBegin(),
+                                              },
+                                              child: new Text('Yes  '),
+                                            ),
+                                          ],
+                                        ));
+                              },
+                              checkColor: CustomColors().white,
+                              activeColor: Colors.green,
+                            ),
                           ),
                         ),
                       ],
                     ),
-                ),
+                  ),
           ],
         ),
       ),
     );
+  }
+
+  /// function transfer
+  transferBegin() {
+    Dialogs.showLoadingDialog(context, _keyLoader1);
+    if (_checkBoxValue) {
+      UpdateTransfers().update(widget.doc, DateTime.now().toString());
+      Timer(Duration(milliseconds: 500), () {
+         Navigator.of(_keyLoader1.currentContext, rootNavigator: true).pop();
+        transferSuccessfull();
+        widget.refresh();
+        widget.refreshDash();
+      });
+    }
   }
 
   /// snackbar for transfer succesfull
